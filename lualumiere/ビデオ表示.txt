@@ -1,8 +1,0 @@
---Tom's intro
-ScenEdit_PlayVideo("tomclancyssn/CLANPROF.wmv", true, 0)
-
---intromovie
-ScenEdit_PlayVideo("tomclancyssn/INTRO.wmv", true, 0)
-
---intermission1
-ScenEdit_PlayVideo("tomclancyssn/INTER1.wmv", true, 0)

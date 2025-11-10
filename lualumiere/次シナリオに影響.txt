@@ -1,0 +1,22 @@
+local guid = '07405b8d-bfe3-45e9-b8c2-f09f5a3fd6b9'
+local newname = "true"
+ScenEdit_SetUnit({guid = guid, newname = newname})
+
+ScenEdit_ExportInst("NEUTRAL", {'07405b8d-bfe3-45e9-b8c2-f09f5a3fd6b9'}, {filename='Importlumiere/Bobadge_Result.inst',name='',comment=''})
+local import = ScenEdit_ImportInst("NEUTRAL","Importlumiere/Bobadge_Result.inst")
+
+if import == 0 then
+  print("No result recorded")
+  return
+end
+
+local trigger1 = ScenEdit_GetUnit({guid='07405b8d-bfe3-45e9-b8c2-f09f5a3fd6b9'}).name
+
+if trigger1 == true then
+  trigger1 = true
+else
+  trigger1 = false
+end
+
+print(trigger1)
+

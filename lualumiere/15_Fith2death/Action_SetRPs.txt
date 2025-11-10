@@ -1,0 +1,16 @@
+local side = "United States"
+local rps = { [1] = { name = 'AEW-1', bearing = 57.8431510925293 }, [2] = { name = 'AEW-2', bearing = 26.4258880615234 }, [3] = { name = 'CAP-1', bearing = -13.6072254180908 }, [4] = { name = 'CAP-2', bearing = 5.28569412231446 }, [5] = { name = 'CAP-3', bearing = 10.4355239868164 }, [6] = { name = 'CAP-4', bearing = -17.5848445892334 } }
+
+
+local from = '284bb5ea-25b8-407b-a0c7-b0a2084ce4bf' --Nimitz
+local to = '2d26fa71-7582-41ba-8aae-423b58dd6d63' --Kefla
+
+local bearing = Tool_Bearing(from, to)
+
+for k, v in pairs(rps) do
+  ScenEdit_SetReferencePoint ({side = side, name = v.name, relativeto = from, bearing = v.bearing + bearing}) 
+end
+
+
+
+

@@ -1,0 +1,158 @@
+local text = [[
+<html>
+<body>
+<h1>Logistics Table</h1>
+<p>Please select weapon load for torpedo tubes.</p>
+    <table>
+        <tr>
+            <td>No 1 Tube: </td>
+            <td> <select name="AIM-120D">
+                    <option value="16">Type 89 Torpedo</option>
+                    <option value="24">UGM-84L Harpoon</option>
+                    <option value="32">UGM-109C Tomahawk TLAM</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>No 2 Tube: </td>
+            <td> <select name="AIM-120D">
+                    <option value="16">Type 89 Torpedo</option>
+                    <option value="24">UGM-84L Harpoon</option>
+                    <option value="32">UGM-109C Tomahawk TLAM</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>GBU-10</td>
+            <td>    
+    <input type="radio" name="opcion" value="16" id="16">
+    <label for="16">16x</label><br>
+
+    <input type="radio" name="opcion" value="24" id="24">
+    <label for="24">24x</label><br>
+
+    <input type="radio" name="opcion" value="32" id="32">
+    <label for="32">32x</label><br>
+        </tr>
+    </table>
+
+</body>
+</html>
+]]
+
+local button = UI_CallAdvancedHTMLDialog("Logistics", text, {"Load and next weapon","Back to "})
+for k,v in pairs(button) do
+print(k .. ' = ' .. v)
+end
+if button['pressed'] == 'Cancel' then
+print("Cancel logic")
+else
+print("Process logic")
+end
+
+
+
+
+
+---------
+
+
+https://commandlua.github.io/assets/Function_UI_CallAdvancedHTMLDialog.html
+
+<STYLE>
+body {
+	background-color: #FFF;
+	color: #000;
+}
+</STYLE>
+
+
+青色
+0, 200, 255
+
+---
+<STYLE>
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+</STYLE>
+
+
+
+
+local text = [[
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<h1>Logistics Table</h1><p>Introduce the quantity you need for each missile type</p>
+    <table>
+        <tr>
+            <th>Missile</th>
+            <th>Qty</th>
+        </tr>
+        <tr>
+            <td>AIM-120A:</td>
+            <td> <select name="AIM-120D">
+                    <option value="16">16x</option>
+                    <option value="24">24x</option>
+                    <option value="32">32x</option>
+                </select>
+
+</td>
+        </tr>
+        <tr>
+            <td>HARM-88C</td>
+            <td><input type="text" name="HARM"></td>
+        </tr>
+        <tr>
+            <td>GBU-10</td>
+            <td>    
+    <input type="radio" name="opcion" value="16" id="16">
+    <label for="16">16x</label><br>
+
+    <input type="radio" name="opcion" value="24" id="24">
+    <label for="24">24x</label><br>
+
+    <input type="radio" name="opcion" value="32" id="32">
+    <label for="32">32x</label><br>
+        </tr>
+    </table>
+
+</body>
+</html>
+]]
+
+ScenEdit_SpecialMessage(side, text)
+
+local button = UI_CallAdvancedHTMLDialog("Logistics", text, {"Submit","Cancel"})
+for k,v in pairs(button) do
+print(k .. ' = ' .. v)
+end
+if button['pressed'] == 'Cancel' then
+print("Cancel logic")
+else
+print("Process logic")
+end
+
+HARM = ''
+pressed = Cancel
+AIM-120D = 16
+Cancel logic
+---The button pressed is returned in the table under ['pressed']. 

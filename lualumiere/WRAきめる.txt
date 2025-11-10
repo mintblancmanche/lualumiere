@@ -1,0 +1,325 @@
+--[[
+    BETTER_BVR
+    by @musurca - 2/7/2023
+
+    This script automatically sets the WRA of each side's BVR weapons
+    based on the following rules:
+    * If outranged by the enemy's best AA missile, then fire at the weapon's
+        maximum range;
+    * Otherwise, fire at a Decision Range (DR), which is calculated from the 
+        attack geometry by estimating a MAR, then estimating a conservative
+        distance at which one can fire, crank, and still escape in the event
+        of a head-on aspect encounter.
+    * In the unlikely event that the DR is less than 1/3 of our weapon range,
+        then just use the No-Escape-Zone (NEZ) of our weapon.
+
+    Unit BVR engagement doctrine is also set to crank-and-drag by default, 
+    giving the pilot the option to drag if necessary to survive.
+
+    The WRA of all WVR weapons (determined by the value of RANGE_WVR below) is 
+    set to NEZ.
+--]]
+
+-- set this to true to print each side's most dangerous BVR weapon & range
+local DEBUG_MODE = false
+
+-- maximum range of a missile in nm, below which it's considered WVR
+local RANGE_WVR = 12
+
+-- percentage of enemy maximum range used to estimate MAR
+local MAR_RANGE_PERCENT = 0.5
+
+-- assumed fov of radar sensor in degrees
+local SENSOR_FOV = 50
+
+-- rough scalar to account for drag in average ground speed over time
+local DRAG_ESTIMATE = 0.85
+
+-- assumed attack ground speed in knots
+local ATTACK_GS = 920
+
+-- assumed maximum missile ground speed in knots
+local MISSILE_GS = 2600
+
+-- assumed distance at which ARH missile goes active in nm
+local MISSILE_ACTIVE_DIST = 10
+
+-- distance in nm to pad Decision Range to allow room for escape maneuver
+local DR_PADDING = 2
+
+-- BVR engagement logic
+local BVR_LOGIC = 2 -- crank-and-drag
+
+-- values calculated from defaults above
+local CRANK_ASPECT = math.cos(0.5*math.rad(SENSOR_FOV))
+local MISSILE_CLOSURE_RATE = DRAG_ESTIMATE*MISSILE_GS/(60*60)
+local CLOSURE_RATE = ATTACK_GS/(60*60)
+
+--target types affected by the script
+local BVR_TARGET_TYPES = {
+    'Air_Contact_Unknown_Type',
+    'Aircraft_Unspecified',
+    'Aircraft_5th_Generation',
+    'Aircraft_4th_Generation',
+    'Aircraft_3rd_Generation',
+    'Aircraft_Less_Capable'
+}
+
+local NON_BVR_TARGET_WRAS = {
+    {'Aircraft_High_Perf_Bombers', '75ofmax'},
+    {'Aircraft_Medium_Perf_Bombers', 'max'},
+    {'Aircraft_Low_Perf_Bombers', 'max'},
+    {'Aircraft_High_Perf_Recon_EW', '50ofmax'},
+    {'Aircraft_Medium_Perf_Recon_EW', '75ofmax'},
+    {'Aircraft_Low_Perf_Recon_EW', 'max'},
+    {'Aircraft_AEW', 'max'},
+    {'Aircraft_Tanker', 'max'},
+    {'Helicopter_Unspecified', '75ofmax'}
+}
+
+local sides = VP_GetSides()
+local max_range_weapon = {}
+local threat_range_max = {}
+local wras_adjusted = 0
+
+function get_weapon_range_max_aa(wpn_dbid)
+    local db_data = ScenEdit_QueryDB('weapon', wpn_dbid)
+    local ranges = db_data.ranges.air
+    return ranges.max
+end
+
+function set_unit_noncritical_wra(unit, weapon)
+    for _, wra_pair in ipairs(NON_BVR_TARGET_WRAS) do
+        local wra_type = wra_pair[1]
+        local wra_range = wra_pair[2]
+
+        local wra = ScenEdit_GetDoctrineWRA({
+            unitname=unit.guid,
+            target_type=wra_type,
+            weapon_id=weapon.wpn_dbid
+        })
+
+        local qtysalvo = '1'
+        local shootersalvo = '1'
+        local selfdefense = 'max'
+
+        if wra.WRA then
+            qtysalvo =  wra.WRA.QTY_SALVO
+            shootersalvo = wra.WRA.SHOOTER_SALVO
+            selfdefense = wra.WRA.SELF_DEFENCE
+        end
+
+        ScenEdit_SetDoctrineWRA(
+            {
+                unitname=unit.guid, 
+                target_type=wra_type, 
+                weapon_id=weapon.wpn_dbid
+            },
+            {
+                qtysalvo,
+                shootersalvo,
+                wra_range,
+                selfdefense
+            }
+        )
+    end
+end
+
+function get_unit_max_range_sensor_aa(unit)
+    local max_range = 0
+    for _, comp in ipairs(unit.components) do
+        if comp.comp_type == 'Sensor' then
+            local db = ScenEdit_QueryDB('sensor', comp.comp_dbid)
+            if db.type == 2004 or db.type == 2001 then
+                if max_range < db.ranges.max then
+                    max_range = db.ranges.max
+                end
+            end
+        end
+    end
+    return max_range
+end
+
+function get_all_side_aircraft(side)
+    local units = {}
+    for _, unit_stub in ipairs(side.units) do
+        local u = ScenEdit_GetUnit({guid=unit_stub.guid})
+        if u.type == "Aircraft" then
+            table.insert(units, u)
+        elseif u.type == "Facility" or u.type == "Ship" then
+            if u.embarkedUnits then
+                if u.embarkedUnits.Aircraft then
+                    local ac_tbl = u.embarkedUnits.Aircraft
+                    for i, v in ipairs(ac_tbl) do
+                        local ac = ScenEdit_GetUnit({guid=v})
+                        table.insert(units, ac)
+                    end
+                end
+            end
+        end
+    end
+
+    return units
+end
+
+-- STEP 1 -- calculate the maximum range of each side's AA missile arsenal
+for _, side in ipairs(sides) do
+    local max_range = 0
+    local dangerous_weapon = ""
+
+    local units = get_all_side_aircraft(side)
+    for _, unit in ipairs(units) do
+        local max_sensor_range = get_unit_max_range_sensor_aa(unit)
+
+        local loadout = ScenEdit_GetLoadout({
+            unitname=unit.guid, 
+            LoadoutID=0
+        })
+        for _, weapon in ipairs(loadout.weapons) do
+            -- loop through all missiles
+            if weapon.wpn_type == 2001 then 
+                --retrieve the missile's maximum AA range from the DB
+                local weap_range_max = get_weapon_range_max_aa(weapon.wpn_dbid)
+                
+                -- weapon limited by sensor range
+                if max_sensor_range < weap_range_max then
+                    weap_range_max = max_sensor_range
+                end
+                
+                -- compare to current maximum and replace it if it exceeds
+                if weap_range_max > max_range then
+                    dangerous_weapon = weapon.wpn_name
+                    max_range = weap_range_max
+                end
+            end
+        end
+    end
+    
+    max_range_weapon[side.name] = {
+        range=max_range, 
+        name=dangerous_weapon
+    }
+end
+
+-- STEP 2 -- calculate the "most dangerous range" for each side, based on their
+-- enemy's maximum missile range
+for _, side in ipairs(sides) do
+    local max_range = 0
+    for _, otherside in ipairs(sides) do
+        if side.name ~= otherside.name then
+            local posture = ScenEdit_GetSidePosture(side.name, otherside.name)
+            if posture == 'H' or posture == 'U' then -- if hostile or unfriendly
+                if max_range_weapon[otherside.name].range > max_range then
+                    max_range = max_range_weapon[otherside.name].range
+                end
+            end
+        end
+    end
+    threat_range_max[side.name] = max_range
+end
+
+-- STEP 3 - estimate a custom MAR for each air unit on each side
+-- and set the WRA accordingly
+for _, side in ipairs(sides) do
+    -- this is the maximum range of our enemy's best AA missile
+    local threat_range = threat_range_max[side.name]
+
+    local units = get_all_side_aircraft(side)
+
+    -- now estimate a custom decision range for each air unit in BVR combat
+    for _, unit in ipairs(units) do
+        -- set our BVR engagement doctrine
+        ScenEdit_SetDoctrine(
+            {guid=unit.guid}, 
+            {bvr_logic=BVR_LOGIC}
+        )
+
+        local loadout = ScenEdit_GetLoadout({
+            unitname=unit.guid, 
+            LoadoutID=0
+        })
+
+        local wra_was_adjusted = false
+        for _, weapon in ipairs(loadout.weapons) do
+            -- loop through all missiles
+            if weapon.wpn_type == 2001 then
+                local wpn_range_max = get_weapon_range_max_aa(weapon.wpn_dbid)
+
+                -- set the WRAs for non-BVR threats
+                set_unit_noncritical_wra(unit, weapon)
+
+                local wra = ScenEdit_GetDoctrineWRA({
+                    unitname=unit.guid, 
+                    target_type='Aircraft_Unspecified',
+                    weapon_id=weapon.wpn_dbid
+                })
+
+                if wra.WRA then
+                    if wpn_range_max > RANGE_WVR then
+                        -- this is a BVR weapon
+
+                        -- Estimate a MAR
+                        local mar = MAR_RANGE_PERCENT * threat_range
+                        local own_closure_rate = CLOSURE_RATE*CRANK_ASPECT
+                        local enemy_closure_rate = CLOSURE_RATE
+                        
+                        -- Estimate the Decision Range
+                        local dist = (mar - MISSILE_ACTIVE_DIST) * (own_closure_rate + enemy_closure_rate) / (MISSILE_CLOSURE_RATE - own_closure_rate)
+                        local decision_range = mar + dist + DR_PADDING
+                        local wpn_range_nez = MAR_RANGE_PERCENT * wpn_range_max
+
+                        if decision_range > wpn_range_max then
+                            -- we're outranged by the enemy's best BVR weapon, so
+                            -- it's safest to fire at our weapon's maximum range
+                            wra.WRA.FIRING_RANGE = 'Max'
+                        elseif decision_range < wpn_range_nez then
+                            -- we significantly outrange the enemy, so use NEZ
+                            wra.WRA.FIRING_RANGE = 'NEZ'
+                        else
+                            -- use the Decision Range
+                            wra.WRA.FIRING_RANGE = tostring(decision_range)
+                        end
+                    else
+                        -- it's a WVR weapon. if we're already in the merge, 
+                        -- use the weapon's no-escape-zone
+                        wra.WRA.FIRING_RANGE = 'NEZ'
+                    end
+                
+                    for _, targ in ipairs(BVR_TARGET_TYPES) do
+                        ScenEdit_SetDoctrineWRA(
+                            {
+                                unitname=unit.guid, 
+                                target_type=targ, 
+                                weapon_id=weapon.wpn_dbid
+                            },
+                            {
+                                wra.WRA.QTY_SALVO,
+                                wra.WRA.SHOOTER_SALVO,
+                                wra.WRA.FIRING_RANGE,
+                                wra.WRA.SELF_DEFENCE
+                            }
+                        )
+                    end
+
+                    wra_was_adjusted = true
+                end
+            end
+        end
+
+        if wra_was_adjusted then
+            wras_adjusted = wras_adjusted + 1
+        end
+    end
+end
+
+print("Done! "..tostring(wras_adjusted).." units had their WRAs adjusted.")
+
+if DEBUG_MODE then
+    print("")
+    for _, side in ipairs(sides) do
+        local weap = max_range_weapon[side.name]
+        if weap.range > 0 then
+            print(side.name.." - "..weap.name.." ("..weap.range.."nm)")
+        end
+    end
+end

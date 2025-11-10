@@ -1,0 +1,72 @@
+--LA Flight I
+USS Los Angeles (SSN-688)	Pacific
+USS Philadelphia (SSN-690)	Atlantic
+USS Baton Rouge (SSN-689)	Atlantic?
+USS Memphis (SSN-691)		Pacific?
+USS Omaha (SSN-692)		Pacific
+USS Cincinnati (SSN-693)	Med?
+USS Groton (SSN-694)		???
+USS Birmingham (SSN-695)	???
+USS New York City (SSN-696)	Pacific
+USS Indianapolis (SSN-697)	Pacific
+USS Bremerton (SSN-698)		Pacific
+USS Jacksonville (SSN-699)	Atlantic
+
+USS Dallas (SSN-700)		Atlantic
+USS La Jolla (SSN-701		Pacific
+USS Phoenix (SSN-702)		Pacific
+USS Boston (SSN-703)		Atlantic?
+USS Baltimore (SSN-704)		Pacific?
+USS City of Corpus Christi (SSN-705)	Pacific???
+USS Albuquerque (SSN-706)	Atlantic
+USS Portsmouth (SSN-707)	Atlantic
+USS Minneapolis–Saint Paul (SSN-708)	Atlantic??
+USS Hyman G. Rickover (SSN-709)	Atlantic??
+USS Augusta (SSN-710)		Atlantic?
+USS San Francisco (SSN-711)	Pacific?
+USS Atlanta (SSN-712)		Atlantic?
+USS Houston (SSN-713)		Pacific, PH
+USS Norfolk (SSN-714)		Atlantic
+USS Salt Lake City (SSN-716)	Pacific
+
+Flight II
+USS Providence (SSN-719)	Atlantic
+USS Pittsburgh (SSN-720)	Atlantic
+USS Chicago (SSN-721)		Pacific, Bremerton
+USS Key West (SSN-722)		Atlantic
+USS Oklahoma City (SSN-723)	Atlantic
+USS Louisville (SSN-724)	Pacific, Bremerton
+USS Helena (SSN-725)		(28 June 1986) Nolfork - San Diego
+USS Newport News (SSN-750)	(15 March 1986) Groton
+
+
+
+los751 = {
+  "SSN-751 USS San Juan"
+, "SSN-752 USS Pasadena"
+, "SSN-753 USS Albany"
+, "SSN-754 USS Topeka"
+, "SSN-755 USS Miami"
+, "SSN-756 USS Scranton"
+, "SSN-757 USS Alexandria"
+, "SSN-758 USS Asheville"
+, "SSN-759 USS Jefferson City"
+, "SSN-760 USS Annapolis"
+, "SSN-761 USS Springfield"
+, "SSN-762 USS Columbus"
+, "SSN-763 USS Santa Fe"
+, "SSN-764 USS Boise"
+, "SSN-765 USS Montpelier"
+, "SSN-766 USS Charlotte"
+, "SSN-767 USS Hampton"
+, "SSN-768 USS Hartford"
+, "SSN-769 USS Toledo"
+, "SSN-770 USS Tucson"
+}
+
+los771 = {
+, "SSN-771 USS Columbia"
+, "SSN-772 USS Greenville"
+, "SSN-773 USS Cheyenne"
+}
+

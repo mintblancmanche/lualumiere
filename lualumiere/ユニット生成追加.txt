@@ -1,0 +1,134 @@
+◇ユニットを配置する（主に飛行場）
+ 
+CWDB			DB3000
+788  1*100-450		1596 400m		3166 Bombtarget
+789  1*451-900		1593 1*1400-2000	452 Building (Medium)
+785  1*901-1400		1712 1*2001-2600	174 city
+786  1*1401-2000	1713 2*2001-2600	1534 MinutemanIII
+400  1*2001-2600	1877 1*2600-3200
+1568 1*2600-3200	1592 1*3201-4000
+787  1*3201-4000	1714 2*2601-3200
+790 2*901-1400		430  2*3201-4000
+791 2*1401-2000		2414 3*2601-3200
+792 2*2001-2600		2415 3*3201-4000
+793 2*2601-3200		2413 3*4000-
+794 2*3201-4000		2416 4*4000-
+3102 port		2980 port
+1787 marker		2086 Truck
+100 city		2349 Marker
+
+local side = ScenEdit_PlayerSide()
+local name = 'Takhli RTAFB'
+local unittype = 'Facility'
+local dbid = 102
+local lat = '21.2.35'
+local lon = '105.51.30'
+local heading = 0
+ScenEdit_AddUnit({side=side, name=name, type=unittype, dbid=dbid, lat=lat, lon=lon, heading=heading})
+
+◇DBIDおきかえ
+local selected = ScenEdit_SelectedUnits()
+for i =1, #selected.units do
+  local guid = selected.units[i].guid
+  local unit = ScenEdit_GetUnit({guid = guid})
+  ScenEdit_AddUnit ({side=unit.side, name=unit.name, Type="Facility", dbid=1592, lat=unit.latitude, lon=unit.longitude})
+  ScenEdit_DeleteUnit ({guid = guid})	
+end
+
+
+◇航空機を追加する
+player = ScenEdit_PlayerSide()
+dbid= 2137
+base = 'USS Carl Vinson (CVN-70) '
+for i = 101, 112 do
+	ScenEdit_AddUnit({side=player, name='VFA-22 #' .. i .. '', type ='Aircraft', dbid=dbid, loadoutid = 4, base = base})
+end
+
+
+
+◇トラック車列追加
+math.randomseed (os.time() )
+local qty = math.random(1,10)
+
+local side = "Soviet Union"
+local name = "Convoy #" .. math.random(1000,9999)
+local unittype = 'Facility'
+local dbid = 2086
+local lat = '53.25.30'
+local lon = '11.30.00'
+local heading = 0
+local status1 = ScenEdit_AddUnit({side=side, name=name .. "-1", group=name,
+type=unittype, dbid=dbid, lat=lat, lon=lon, heading=heading})
+
+for i = 2, qty do
+point = World_GetPointFromBearing({latitude=status1.latitude,
+longitude=status1.longitude, bearing=180, distance=0.25*(i-1)})
+    ScenEdit_AddUnit({side=side, name=name .."-" .. i, group=name,
+    type=unittype, dbid=dbid, lat=point.latitude, lon=point.longitude, heading=heading})
+end
+
+◇マウント追加
+local guid= '87YZY5-0HMPP8EUB5UM0'
+local dbid = 3211
+local arc_mount = {"SMF2", "SMF1", "SMA2", "SMA1", "PMF2", "PMF1", "PMA2", "PMA1"}
+for i = 1, 2 do --how many mounts you add
+    ScenEdit_UpdateUnit({guid=guid, mode="add_mount", dbid=dbid, arc_mount=arc_mount})
+    i = i+1
+end
+
+local guid= '87YZY5-0HMPP8EUB5UM0'
+local mode = "add_comms"
+local dbid = 291
+ScenEdit_UpdateUnit({guid=guid, mode=mode, dbid=dbid})
+
+◇カミカゼ爆弾を追加する
+local side = "United States"
+local mission = "Kamikaze"
+local mission = ScenEdit_GetMission(side, mission)
+local arc = {"PMF2", "PB1", "PB2", "SB1", "SB2", "SMF1"}
+
+for k, v in ipairs (mission.unitlist) do
+    ScenEdit_UpdateUnit({guid=v, mode="add_mount", dbid=2668, arc_mount=arc })
+end
+
+◇カリブルを追加する
+local guid= '87YZY5-0HMNQ0PA3EA88'
+local dbid = 2914
+local arc_mount = {"SMF2", "SMF1", "SMA2", "SMA1", "PMF2", "PMF1", "PMA2", "PMA1"}
+for i = 1, 4 do
+    ScenEdit_UpdateUnit({guid=guid, mode="add_mount", dbid=dbid, arc_mount=arc_mount})
+    i = i+1
+end
+
+◇弾薬を追加する
+local unit = 'Moi Air Base'
+local loadoutid = 627
+local quantity = 30
+
+ScenEdit_FillMagsForLoadout({unit= unit, loadoutid=loadoutid, quantity=quantity})
+
+ScenEdit_AddWeaponToUnitMagazine({side='Coalition',unitname='Bunker',wpn_dbid='51',number=10,maxcap=250}))
+
+
+◇航空機を生成
+local side = "HOSTILE"
+local name = 'P-3F Minelayer #1'
+local unittype = 'Aircraft'
+local dbid = 1313
+local loadoutid = 12578
+local lat = 'N26.40.00'
+local lon = 'E56.42.05'
+local heading = 0
+local altitude = 10000
+
+ScenEdit_AddUnit({side=side, name=name, type=unittype, dbid=dbid,
+loadoutid = loadoutid, latitude=lat, longitude=lon, heading=heading, altitude = altitude})
+
+◇航空機置き換え
+local unit = ScenEdit_GetUnit ({guid=ScenEdit_SelectedUnits().units[1].guid})
+
+ScenEdit_AddUnit ({side=unit.side, name=unit.name, type="Aircraft, dbid=1288,
+loadoutid =8844, latitude=unit.latitude, longitude=unit.longitude, heading=0, altitude = 20000})
+
+
+

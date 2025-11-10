@@ -1,0 +1,20 @@
+local side = VP_GetSide({Side ='Blue'}) 
+local weapon = side:unitsBy("6")
+print(weapon)
+
+local torp1 = ScenEdit_GetUnit({guid=weapon[1].guid})
+local wp1 = World_GetPointFromBearing({latitude=torp1.latitude,
+longitude= torp1.longitude, bearing=337.5, distance=5})
+
+local course = {
+[1] = {TypeOf = 'ManualPlottedCourseWaypoint', latitude=wp1.latitude, longitude= wp1.longitude}
+}
+torp1.course = course
+
+
+
+local sj = '13a966e0-f257-4de5-9cc2-84d8ba94962b' --San Juan
+local target = '87YZY5-0HMRB97JGI11B'
+local options = {mode=0}
+
+ScenEdit_AttackContact (sj, target, options)

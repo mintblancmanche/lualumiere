@@ -1,0 +1,39 @@
+--must be before 1997-03-09 00:00:00
+if ScenEdit_CurrentTime() < 857864600 then
+    return true
+else
+    return false
+end
+
+◇hostileコンタクトなし+撃沈イベント未発生
+local side = ScenEdit_PlayerSide()                  --check hostile contacts
+local contacts = VP_GetSide ({side=side}).contacts
+local hostle = {}
+
+for k, v in ipairs(contacts) do
+	local contact = VP_GetContact({guid=v.guid})
+	if contact.posture == "H" then
+		table.insert(hostle, v.guid)
+	end
+end
+print(hostle)
+
+--
+local event = "003_Hampton lose"                    --check "003_Hampton lose" is still active (=not fired)
+local event = ScenEdit_GetEvent(event)
+print(event.details)
+
+if (next(hostle) == nil) and (event.details.isActive == true) then
+    return true
+else
+    return false
+end
+
+◇COnditionの深度チェック
+local sub = ScenEdit_GetUnit({guid='834430da-cd6b-45cc-97c7-165020e175ce'}) --greenville
+
+if sub.altitude >= -15 then
+    return true
+else
+    return false
+end

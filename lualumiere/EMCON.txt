@@ -1,0 +1,83 @@
+local type = 'Unit'
+local guid = '0f1b30f4-0982-4120-bec0-9a93be06b904' --ex
+
+local inherit = false
+
+local radar = true
+local sonar = false
+local oecm  = false
+
+--
+local emcon
+if inherit == true then
+  emcon = 'Inherit'
+else  
+  if radar == true then
+    radar = 'Radar=Active'
+  else
+    radar = 'Radar=Passive'
+  end
+
+  if sonar == true then
+    sonar = 'Sonar=Active'
+  else
+    sonar = 'Sonar=Passive'
+  end
+
+  if oecm == true then
+    oecm = 'OECM=Active'
+  else
+    oecm = 'OECM=Passive'
+  end
+
+  emcon = tostring(radar.. ';' ..sonar.. ';' ..oecm)
+end
+print(emcon)
+--
+
+ScenEdit_SetEMCON(type, guid, emcon)
+
+
+◇ソーナーランダム
+
+function SetSonarValue()
+    math.randomseed(os.time() )
+    local d2 = math.random(0,1)
+
+    local sonar
+    if d2 == 0 then
+        sonar = 'Sonar=Active'
+    else
+        sonar = 'Sonar=Passive'
+    end
+    return sonar
+end
+
+local mission = "Patrol #1OBrien"
+local mission = ScenEdit_GetMission("RED", mission)
+ScenEdit_SetEMCON('mission', mission.guid, SetSonarValue() )
+for k, v in ipairs (mission.unitlist) do
+	ScenEdit_SetEMCON('unit', v, "Inherit")
+end
+
+
+----
+local mission = "Patrol #2"
+local mission = ScenEdit_GetMission("China", mission)
+ScenEdit_SetEMCON('mission', mission.guid, 'Sonar=Active')
+for k, v in ipairs (mission.unitlist) do
+	ScenEdit_SetEMCON('unit', v, "Inherit")
+end
+
+local event = "Sonar_Passive"
+ScenEdit_SetEvent(event, {isactive=true})
+
+---
+local mission = "Patrol #2"
+local mission = ScenEdit_GetMission("China", mission)
+ScenEdit_SetEMCON('mission', mission.guid, 'Sonar=Passive')
+for k, v in ipairs (mission.unitlist) do
+	ScenEdit_SetEMCON('unit', v, "Inherit")
+end
+
+ScenEdit_EventX().isActive = false

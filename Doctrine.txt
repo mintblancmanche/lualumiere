@@ -1,0 +1,23 @@
+local side = "San Juan"
+local mission = "PatSub-SJ"
+
+local sidedoc = ScenEdit_GetDoctrine({side = side})
+print(sidedoc)
+
+local misdoc = ScenEdit_GetDoctrine({side = side, mission = mission})
+print(misdoc)
+
+local docambi
+if misdoc.engaging_ambiguous_target ~= nil then
+  docambi = misdoc.engaging_ambiguous_target
+else
+  docambi = sidedoc.engaging_ambiguous_target
+end
+
+local kine
+if misdoc.kinematic_range_for_torpedoes ~= nil then
+  docambi = misdoc.kinematic_range_for_torpedoes
+else
+  docambi = sidedoc.kinematic_range_for_torpedoes
+end
+

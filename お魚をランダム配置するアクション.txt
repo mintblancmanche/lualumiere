@@ -1,0 +1,19 @@
+local unitAry = {{name='Biologic #1', guid='O5UD8C-0HNGT83LAEGDL'} , {name='Biologic #8', guid='O5UD8C-0HNGT83LAEGF6'} , {name='Biologic #7', guid='O5UD8C-0HNGT83LAEGEV'} , {name='Biologic #3', guid='O5UD8C-0HNGT83LAEGE3'} , {name='Biologic #9', guid='O5UD8C-0HNGT83LAEGFD'} , {name='Biologic #10', guid='O5UD8C-0HNGT83LAEGFK'} , {name='Biologic #2', guid='O5UD8C-0HNGT83LAEGDS'} , {name='Biologic #6', guid='O5UD8C-0HNGT83LAEGEO'} , {name='Biologic #4', guid='O5UD8C-0HNGT83LAEGEA'} , {name='Biologic #5', guid='O5UD8C-0HNGT83LAEGEH'}}
+local guids = {}
+for k, v in pairs(unitAry) do
+    table.insert(guids, v.guid)
+end
+    
+
+local area = {"RP-46", "RP-47", "RP-48", "RP-49"}
+
+ScenEdit_SetAction({mode="add", name="Teleport0 - Neutral", type="TeleportInArea", UnitIDs=guids, Area=area})
+
+
+local side = "OPFOR"
+local areaTbl = {"RP-37", "RP-38", "RP-39", "RP-40",
+    "RP-42", "RP-43", "RP-44", "RP-45",
+    "RP-83", "RP-84", "RP-85", "RP-86"}
+for k, v in pairs(areaTbl) do
+	ScenEdit_SetReferencePoint({side= side, name= v, clear= true}) 
+end

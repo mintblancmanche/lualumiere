@@ -1,0 +1,31 @@
+---- Preference section
+local side1 = "Argentina"
+local unitname = "Port Stanley Airfield"
+local unit = ScenEdit_GetUnit({side=side1, name=unitname})
+local side2 = "United Kingdom"
+---- 
+
+ScenEdit_SetKeyValue("side1", side1)
+ScenEdit_SetKeyValue("side2", side2)
+
+local unitlist =table.concat(unit.group.unitlist, ', ' )
+ScenEdit_SetKeyValue("unitlist", unitlist )
+print(ScenEdit_GetKeyValue("unitlist") )
+
+
+table.remove(unitlist, 1) --grouplead
+
+
+local facilities = table.concat(unitlist, ', ' )
+ScenEdit_SetKeyValue( "facities", facilities )
+
+---- group lead as 
+local lead = ScenEdit_GetUnit({guid=unit.group.unitlist[1]})
+ScenEdit_SetUnitSide({side=side1, name=lead.name, newside=side2})
+
+lead.group = newname
+local newbase = ScenEdit_GetUnit({side=side2, name=unitname})
+
+-- new group
+ScenEdit_SetKeyValue( "newbase_guid", newbase.guid )
+ScenEdit_SetEvent('Assign facilites to base', {isActive='true'})

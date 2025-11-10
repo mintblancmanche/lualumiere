@@ -1,0 +1,168 @@
+DDH
+JS Haruna (DDH-141)	73-09 Maizuru
+JS Hiei (DDH-142)	74-11 Kure
+
+JS Shirane (DDH-143)	80-15 Yokosuka
+JS Kurama (DDH-144)	81-17 Sasebo
+
+JS Hyuga (DDH-181)	09- Maizuru
+JS Ise (DDH-182)	11- Sasebo
+
+JS Izumo (DDH-183)	15- Yokosuka
+JS Kaga (DDH-184)	17- Kure
+---
+DDG
+JS Amatsukaze (DDG-163) 65-86 Yokosuka 86-95 Maizuru
+
+JS Tachikaze (DDH-168)	76-95 Sasebo
+			95-07 Yokosuka
+JS Asakaze (DDG-169)	79-95 Yokosuka
+			95-08 Sasebo
+JS Sawakaze (DDG-170)	83-07 Sasebo
+			07-10 Yokosuka
+
+JS Hatakae (DDG-171)	86- Yokosuka
+JS Shimakaze (DDG-172)	88- Sasebo
+
+JS Kongo (DDG-173) 	93- Sasebo
+JS Kirishima (DDG-174)	95- Yokosuka
+JS Myoko (DDG-175)	96- Maizuru
+JS Chokai (DDG-176)	98- Sasebo
+
+JS Atago (DDG-177)	07- Maizuru
+JS Ashigara (DDG-178)	08- Sasebo
+
+JS Maya (DDG-179)	20- Yokosuka
+JS Haguro (DDG-180)	21- Sasebo
+---
+JS Yamagumo (DD-113)	66-95
+JS Makugumo (DD-114)	66-95
+JS Asagumo (DD-115)	67-98
+JS Aokumo (DD-119)	72-03
+JS Akigumo (DD-120)	74-05
+JS Yugumo (DD-121)	78-05
+
+JS Minegumo (DD-116)	68-99
+JS Natsugumo (DD-117)	69-99
+JS Murakumo (DD-118)	70-00
+
+JS Taaktsuki (DD-164)	67-02
+JS Kikuzuki (DD-165)	68-03
+JS Mochizuki (DD-166)	69-99
+JS Nagatsuki (DD-167)	70-98
+
+JS Hatsuyuki (DD-122)	82-10 Yokosuka
+JS Shirayuki (DD-123)	82-16 Yokosuka
+JS Mineyuki (DD-124)	84-13 Maizuru
+JS Sawayuki (DD-125)	84-13 Yokosuka
+JS Hamayuki (DD-126)	83-12 Maizuru
+JS Isoyuki (DD-127)	85-14 Sasebo
+JS Haruyuki (DD-128)	85-14 Sasebo
+JS Yamayuki (DD-129)	85-20 Kure
+JS Matsuyuki (DD-130)	86-21 Kure
+JS Setoyuki (DD-131)	86-21 Kure
+JS Asayuki (DD-132)	87-20 Sasebo
+JS Shimayuki (DD-133)	87-21 Kure
+
+JS Asagiri (DD-151)	88- Maizuru
+JS Yamagiri (DD-152)	89 Yokosuka
+JS Yugiri (DD-153)	90 Yokosuka
+JS Amagiri (DD-154)	89 Yokosuka
+JS Hamagiri (DD-155)	90 Ominato
+JS Setogiri (DD-156)	90 Maizuru
+JS Sawagiri (DD-157)	90 Sasebo
+JS Umigiri (DD-158)	91 Kure
+
+JS Murasame (DD-101)	96- Yokosuka
+JS Harusame (DD-102)	97- Sasebo
+JS Yudachi (DD-103)	99- Ominato
+JS Kirisame (DD-104)	99- Sasebo
+JS Inazuma (DD-105)	00- Kure
+JS Samidare (DD-106)	00- Kure
+JS Ikazuchi (DD-107)	01- Yokosuka
+JS Akebono (DD-108)	02- Kure
+JS Ariake (DD-109)	02- Sasebo
+
+
+-------
+Chikugo (DD-215)
+Ayase (DD-216)
+Mikuma (DD-217)
+Tokachi (DD-218)
+Iwase (DD-219)
+Chitose (DD-220)
+Niyodo (DD-221)
+Teshio (DD-222)
+Yoshino (DD-223)
+Kumano (DD-224)
+Noshiro (DD-225)
+
+Ishikari (DD-226)
+
+Yubari (DD-227)
+Yubetsu (DD-228)
+
+Abukuma (DE-229)
+Jintsu (DE-230)
+Oyodo (DE-231)
+Sendai (DE-232)
+Chikuma (DE-233)
+Tone (DE-234)
+
+
+
+
+
+
+
+
+---------
+
+
+
+
+
+
+
+
+
+
+
+
+うずしお JS Uzushio (SS-566) 72-87
+まきしお JS Makishio (SS-567) 72-88
+いそしお JS Isoshio (SS-568) 72-92
+なるしお JS Narushio (SS-569) 73-93
+くろしお JS Kuroshio (SS-570) 74-94
+たかしお JS Takashio (SS-571) 76-95
+やえしお JS Yaeshio (SS-572) 78-96
+
+ゆうしお JS Yushio (SS-573) 80-99
+もちしお JS Mochishio (SS-574) 81-00
+せとしお JS Setoshio (SS-575) 82-01
+おきしお JS Okishio (SS-576) 83-03
+なだしお JS Nadashio (SS-577) 84-01
+はましお JS Hamashio (SS-578) 85-06
+あきしお JS Akishio (SS-579) 86-04
+たけしお JS Takeshio (SS-580) 87-05
+ゆきしお JS Yukishio (SS-581) 88-08
+さちしお JS Sachishio (SS-582) 89-06
+
+はるしお JS Harushio (SS-583) 90-09
+なつしお JS Natsushio (SS-584) 91-10
+はやしお JS Hayashio (SS-585) 92-11
+あらしお JS Arashio (SS-586) 93-12
+わかしお JS Wakashio (SS-587) 94-13
+ふるしお JS Furushio (SS-588) 95-15
+あさしお JS Asashio (SS-589) 97-17
+
+かざしお
+ながしお
+おおしお
+きよしお
+たましお
+すずしお
+ふじしお
+はましお
+
+쏴! (shoot!)

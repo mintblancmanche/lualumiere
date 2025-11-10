@@ -1,0 +1,101 @@
+◇Barkを表示する
+local unit = "ROKAF Jungwon Air Base"
+local text = "敵の潜水艦を発見！"
+local R = 255
+local B = 255
+local G = 127
+local moveUpward = true
+local fade = true
+local lifeTime = 5
+local fontSize = 30
+
+ScenEdit_CreateBarkNotification_Unit(unit, text, R, B, G,
+moveUpward,fade,lifeTime,fontSize)
+
+◇爆発を追加する
+-- 210 = 250lb Mk81
+-- 549/288 = 500lb Mk82
+-- 302 = 1000lb Mk83
+-- 521/299 = 2000lb Mk84
+-- 1033 = 1kT nuclear
+
+local guid = "87YZY5-0HMFCCN38FA5J"
+local warheadid = 157
+---
+local target = ScenEdit_GetUnit({guid=guid})
+ScenEdit_AddExplosion({warheadid=warheadid, latitude=target.latitude, longitude=target.longitude, alitude=target.altitude})
+
+ScenEdit_PlaySound("Impact_directhit_large.mp3")
+
+
+◇機雷原を設定する
+ 
+2416 - Dummy
+2463 - Bottom, Simple 150ftくらい
+2462 - Bottom, Advanced
+2464 - Bottom, Unsweepable, Shallow-only
+2466 - Bottom, Unsweepable
+2465 - Bottom, Unsweepable
+632  - Bottom Magnetic
+2461 - Bottom Total Field Magnetometer Fuze
+2582 - Drifting - 敷設されない模様
+634  - Floating
+633 - Moored
+2581 - Rising
+
+876 - SLMM Mod.1
+662 - SLMM Mod.2
+2422 - CAPTOR（潜水艦専用）
+3404 - PMK-2（潜水艦専用）
+3465 - PMT-1
+3398 - EM-52
+2086 - Mk62 (Mk82
+2088 - Mk83
+2089 - Mk65 (2000lb)
+ 
+
+local side= ScenEdit_PlayerSide()
+local dbid = 633
+local number = 20
+local delay = 0 
+local area = {"Minefield #1", "Minefield #2", "Minefield #3", "Minefield #4"}
+ScenEdit_AddMinefield ( {side=side, dbid=dbid, number=number, delay=delay, area=area } ) 
+
+local side= ScenEdit_PlayerSide()
+local area = {"Minefield #1", "Minefield #2", "Minefield #3", "Minefield #4"}
+ScenEdit_DeleteMinefield({side=side, area=area } )
+
+
+local side= ScenEdit_PlayerSide()
+local dbid = 662
+local number = 1
+local delay = 3600*2 
+local area = {"RP-9", "RP-10", "RP-12", "RP-11"}
+ScenEdit_AddMinefield ( {side=side, dbid=dbid, number=number, delay=delay, area=area } ) 
+
+
+
+◇Keyvalue
+ScenEdit_SetKeyValue("unit1","CFO9UN-0HMNB6UOBCO0G")
+ScenEdit_SetKeyValue("unit2","0593c70e-954d-4f1a-b557-262d61f2ad1b")
+local unit1 = tostring(ScenEdit_GetKeyValue("unit1") )
+local unit2 = tostring(ScenEdit_GetKeyValue("unit2") )
+
+時間
+
+◇False Contactをノイズメーカーとして出現
+local guid = 'db4df510-1fd8-43de-a6f1-0b6f39299c01' --hampton
+local unit = ScenEdit_GetUnit({guid=guid})
+
+local side = ScenEdit_PlayerSide()
+local name = 'Noisemaker #' ..math.random(10, 99)
+local unittype = "Submarine"
+local dbid = 95
+local lat = unit.latitude
+local lon = unit.longitude
+local heading = unit.heading
+local altitude = unit.altitude
+
+ScenEdit_AddUnit({side=side, name=name, type=unittype, dbid=dbid,
+lat=lat, lon=lon, heading=heading, altitude=altitude})
+

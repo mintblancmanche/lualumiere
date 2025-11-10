@@ -1,0 +1,11 @@
+装填済み魚雷
+
+local unit = ScenEdit_GetUnit({name='SSN-772 USS Greenville', guid='834430da-cd6b-45cc-97c7-165020e175ce'}).mounts
+for k, v in pairs(unit) do
+    for k1, v1 in pairs(v.mount_weapons) do
+        if v1.wpn_current > 0 and v1.wpn_type == 4001 then--torpedo
+            print(v1)
+        end
+    end
+
+end

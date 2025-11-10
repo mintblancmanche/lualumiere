@@ -1,0 +1,35 @@
+21 = {"F169 HMS Amazon", "F170 HMS Antelope", "F171 HMS Active", "F172 HMS Ambuscade"," F173 HMS Arrow", "F174 HMS Alacrity", "F184 HMS Ardent", F185 HMS Avenger"}
+22_1 = {"F88 HMS Broadsword", "F89 HMS Battleaxe", "F90 HMS Brilliant", "F91 HMS Brazen"}
+22_2 = {"F92 HMS Boxer", "F93 HMS Beaver", "HMS Brave (F94)", "F95 HMS London", "F96 HMS Sheffield", "F98 HMS Coventry"}
+22_3 = {"F99 HMS Cornwall", "F85 HMS Cumberland", "F86 HMS Campbeltown", "F87 HMS Chatham"}
+
+23 = {"F230 HMS Norfolk", F233 HMS Marlborough", "F80 HMS Grafton"}
+23_GP = {"F231 Argyll", "F229 HMS Lancaster", "F234 HMS Iron Duke", "F235 HMS Monmouth", "F236 HMS Montrose"}
+23_ASW = {"F237 HMS Westminster", "F238 HMS Northumberland", "F239 HMS Richmond", "F82 HMS Somerset", "F81 HMS Sutherland", "F78 HMS Kent", "F79 HMS Portland", "F83 HMS St Albans"}
+
+42_1 = {"D80 HMS Sheffield", "D86 HMS Birmingham", "D87 HMS Newcastle", "D118 HMS Coventry", "D88 HMS Glasgow", "D108 HMS Cardiff"}
+42_2 = {"D89 HMS Exeter", "D90 HMS Southampton", "D92 HMS Liverpool", "D91 HMS Nottingham"}
+42_3 = {"D95 HMS Manchester", "D98 HMS York", "D96 HMS Gloucester", "D97 Edingburgh"} 
+45 = {"D32 HMS Daring", "D33 HMS Dauntless", "D34 HMS Diamond", "D35 HMS Dragon", "D36 HMS Defender", "D37 HMS Duncan"}
+
+porpoise = {"S01 HMS Porpoise", "S02 HMS Rorqual", "S03 HMS Narwhal", "S04 HMS Grampus", "S05 HMS Finwhale", "S06 HMS Cachalot", "S07 HMS Sealion", "S08 HMS Walrus"}
+oberon = {"S09 HMS Oberon", "S17 HMS Ocelot", "S10 HMS Odin", "S12 HMS Olympus", "S14 HMS Onslaught", "S21 HMS Onyx", "S20 HMS Opportune", "S19 HMS Opossum", "S16 HMS Oracle", "S11 HMS Orpheus", "S13 HMS Osiris", "S15 HMS Otter", "S18 HMS Otus"}
+upholder = {"S40 HMS Upholder", "S41 HMS Unseen", "S42 HMS Ursula", "S43 HMS Unicorn"}
+
+valiant = {"S102 HMS Valiant", "S103 HMS Warspite"}
+churchill = {"S46 HMS Churchill", "S48 HMS Conqueror", "S50 HMS Courageous"}
+swiftsure = {"S126 HMS Swiftsure", "S108 HMS Sovereign", "S109 HMS Superb", "S104 HMS Sceptre", "S105 HMS Spartan", "S106 HMS Splendid"}
+trafalgar = {"S107 HMS Trafalgar", "S87 HMS Turbulent", "S88 HMS Tireless", "S90 HMS Torbay", "S91 HMS Trenchant", "S92 HMS Talent", "S93 HMS Triumph"}
+astute = {"S119 HMS Astute", "S120 HMS Ambush", "S121 HMS Artful", "S122 HMS Audacious", "S123 HMS Anson", "S124 HMS Agamemnon", "S125 HMS Agincourt"}
+
+resolution = {"S22 HMS Resolution", "S23 HMS Repulse", "S26 HMS Renown", "S27 HMS Revenge"}
+vanguard = {"S28 HMS Vanguard", "S29 HMS Victorious", "S30 HMS Vigilant", "S31 HMS Vengeance"}
+
+hunt = {"M29 HMS Brecon", "M30 HMS Ledbury", "M31 HMS Cattistock", "M33 HMS Brocklesby", "M34 HMS Middleton", " M37 HMS Chiddingfold", "M38 HMS Atherstone", "M39 HMS Hurworth"}
+sandown = {"M103 HMS Cromer", "M104 HMS Walney", "M106 HMS Penzance", "M107 HMS Pembroke", "M109 HMS Bangor", "M110 HMS Ramsey"}
+
+fearless = {"L10 HMS Fearless", "L11 HMS Intrepid"}
+albion = {"L14 HMS Albion", "L15 HMS Bulwark"}
+
+roundtable = {L3004 RFA Sir Bedivere", "L3005 RFA Sir Galahad", "L3027 RFA Sir Geraint", "L3029 RFA Sir Lancelot", "L3036 RFA Sir Percivale", "L3505 RFA Sir Tristram"}
+roundtablemod = {"L50 RFA Tobruk", "L3005 RFA Sir Galahad"}

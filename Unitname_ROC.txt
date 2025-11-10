@@ -1,0 +1,42 @@
+https://en.wikipedia.org/wiki/List_of_Republic_of_China_Navy_ships
+
+keelungkidd = {
+"DDG-1801 ROCS Kee Lung",
+"DDG-1802 ROCS Su Ao",
+"DDG-1803 ROCS Tso Ying",
+"DDG-1805 ROCS Ma Kong"
+}
+--基隆，蘇澳，左栄，馬公
+
+chiyangknox = {
+ROCS Fong Yang (FFG-933)
+ROCS Fen Yang (FFG-934)
+ROCS Lan Yang (FFG-935)
+ROCS Hwai Yang (FFG-937)
+ROCS Ning Yang (FFG-938)
+ROCS Yi Yang (FFG-939) 
+}
+
+
+perry = {
+"PFG-1101 ROCS Cheng Kung",
+"PFG-1103 ROCS Cheng Ho",
+"PFG-1105 ROCS Chi Kuang",
+"PFG-1106 ROCS Yueh Fei",
+"PFG-1107 ROCS Tzu I",
+"PFG-1108 ROCS Pan Chao",
+"PFG-1109 ROCS Chang Chien",
+"PFG-1110 ROCS Tian Dan",
+"PFG-1112 ROCS Ming Chuan
+"PFG-1115 ROCS Feng Jia”
+}
+--成功，鄭和，継光，岳飛，子議，班超，張騫，田単，銘伝，逢甲
+
+hailung = {
+"SS-793 ROCS Hai Lung",
+"SS-794 ROCS Hai Hu"
+}
+
+haikung = {
+"SS-711 ROCS Hai Kun"
+}

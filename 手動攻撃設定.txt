@@ -1,0 +1,154 @@
+◇基本
+local attacker = {name='Flight Savage88', guid='ccc00ba5-d684-4353-990e-dba9ab6b9179'}
+local target = {name='MOBILE #5', guid='2fe1748a-66f4-4199-88f2-feb2a0694dca'}
+local options = {mode=2}
+
+ScenEdit_AttackContact (attacker.guid, target.guid, options)
+
+
+
+
+◇手動攻撃設定+RPをウェイポイントとして設定（１：コンタクト指定するやつ）
+https://commandlua.github.io/assets/Function_ScenEdit_AttackContact.html
+https://www.matrixgames.com/forums/viewtopic.php?f=10236&t=391924
+
+local guid = '87YZY5-0HMNOB5T4SJ1U'
+local unit = ScenEdit_GetUnit({guid=guid})
+if ScenEdit_SelectedUnits().units ~= nil then
+	selected = ScenEdit_GetUnit({guid=ScenEdit_SelectedUnits().units[1].guid})
+else
+	selected =  VP_GetContact({guid=ScenEdit_SelectedUnits().contacts[1].guid})
+end
+
+local waypoint = {"RP-108", "RP-109", "RP-110"}
+local course = {}
+for k, v in ipairs (waypoint) do
+	local rp = ScenEdit_GetReferencePoint({side=unit.side, name=v})
+table.insert (course, {latitude=rp.latitude, longitude= rp.longitude})
+end
+
+local contactid = ScenEdit_SelectedUnits().contacts[1].guid
+local options ={mode=2, course = course}
+
+ScenEdit_AttackContact (unit.guid, contactid, options)
+
+-----
+local attackerguid = '64153361-eec5-4ad7-8b01-fa462f892193'--colo
+local targetguid = '3b7ff69b-4b0a-4a45-9a8b-dc071b447add'--target1
+local waypoint = {"Target #1 Landfall point"}
+
+local attackerside = ScenEdit_GetUnit({guid=attackerguid}).side
+
+local course = {}
+for k, v in ipairs (waypoint) do
+	local rp = ScenEdit_GetReferencePoint({side=attackerside, name=v})
+    table.insert (course, {latitude=rp.latitude, longitude= rp.longitude})
+end
+print(course)
+
+local options = {mode=2, course = course}
+
+ScenEdit_AttackContact (attackerguid, targetguid, options)
+
+
+
+
+◇手動攻撃設定+RPをウェイポイントとして設定（2：BOLモード）
+
+local guid = 'd4a126f4-618c-4831-b4c6-c2efb51edfe2'
+local unit = ScenEdit_GetUnit({guid=guid})
+print(unit.mounts)
+
+local waypoint = {"RP-1301", "RP-1302", "RP-1303"}
+local course = {}
+for k, v in ipairs (waypoint) do
+	local rp = ScenEdit_GetReferencePoint({side=unit.side, name=v})
+table.insert (course, {latitude=rp.latitude, longitude= rp.longitude})
+end
+
+local contactid = BOL
+local options ={mode=1, qty=4, course = course,
+mount=unit.mounts[1].mount_dbid,
+weapon=unit.mounts[1].mount_weapons[3].wpn_dbid,
+latitude= ScenEdit_GetReferencePoint({side=unit.side, name=waypoint[#waypoint]}).latitude,
+longitude= ScenEdit_GetReferencePoint({side=unit.side, name=waypoint[#waypoint]}).longitude
+}
+
+ScenEdit_AttackContact (unit.guid, contactid, options)
+
+--1137	Mk41*32
+--1139	Mk41*64
+
+--2530	VPT (Virginia VLS)
+--2531	533mmTT (Virginia)
+
+{
+[1] = { mount_dbid = 1137, mount_status = 'Operational', mount_weapons = {
+[1] = { wpn_current = 14, wpn_default = 14, wpn_name = 'RGM-109C Tomahawk Blk III TLAM-C', wpn_type = 2001, wpn_maxcap = 32, wpn_dbid = 1131, wpn_guid = '74aee8e5-315f-4dbe-865e-eef7f7128cc9' },
+[2] = { wpn_current = 0, wpn_default = 0, wpn_name = 'RGM-109D Tomahawk Blk III TLAM-D', wpn_type = 2001, wpn_maxcap = 32, wpn_dbid = 744, wpn_guid = '5a548f81-6152-47a3-9b75-d5a0a84ae5b6' },
+[3] = { wpn_current = 14, wpn_default = 14, wpn_name = 'RGM-109E Tomahawk Blk IV TACTOM', wpn_type = 2001, wpn_maxcap = 32, wpn_dbid = 586, wpn_guid = '737ea803-c528-45ca-8fb2-5656e79831cf' } }, mount_guid = '0bbfd3cb-1a3c-4622-b2f9-ea8db3f9742d', mount_name = 'Mk41 VLS [32 Cells]' },
+
+[2] = { mount_dbid = 1139, mount_status = 'Operational', mount_weapons = {
+[1] = { wpn_current = 14, wpn_default = 14, wpn_name = 'RGM-109C Tomahawk Blk III TLAM-C', wpn_type = 2001, wpn_maxcap = 64, wpn_dbid = 1131, wpn_guid = '688de343-ff4f-452d-b56d-3ace6b0cc5a5' },
+[2] = { wpn_current = 0, wpn_default = 0, wpn_name = 'RGM-109D Tomahawk Blk III TLAM-D', wpn_type = 2001, wpn_maxcap = 64, wpn_dbid = 744, wpn_guid = '69dee281-f12e-454b-a5a5-33dcfb9e5e14' },
+[3] = { wpn_current = 14, wpn_default = 14, wpn_name = 'RGM-109E Tomahawk Blk IV TACTOM', wpn_type = 2001, wpn_maxcap = 64, wpn_dbid = 586, wpn_guid = '600a99f3-c3a7-430e-a107-e84a3e00f5bf' } }, mount_guid = '7627c5d7-d69b-4149-ba0f-14e44417c0f0', mount_name = 'Mk41 VLS [64 Cells]' }
+}
+ーーー魚雷で攻撃
+
+--[[local unit = ScenEdit_GetUnit({name='SSN-772 USS Greenville', guid='834430da-cd6b-45cc-97c7-165020e175ce'}).mounts
+for k, v in pairs(unit) do
+    for k1, v1 in pairs(v.mount_weapons) do
+        if v1.wpn_current > 0 and v1.wpn_type == 4001 then--torpedo
+            print(v)
+            print(v1)
+        end
+    end
+
+end
+]]
+
+local guid = '834430da-cd6b-45cc-97c7-165020e175ce'
+local unit = ScenEdit_GetUnit({guid=guid})
+
+local contactid = "BOL"
+local options = {mode=1, qty=1,
+mount=unit.mounts[2].mount_dbid,
+weapon=unit.mounts[2].mount_weapons[1].wpn_dbid,
+latitude='41.1433463841599', longitude='18.4129044677976'
+}
+
+ScenEdit_AttackContact (unit.guid, contactid, options)
+
+
+
+
+ーーー
+ options {}
+
+    mode = TargetingMode The attack behaviour. 'ManualWeaponAlloc' requires supplying the weapon information to fire with.
+0 = Autotargeted
+1 = ManualWeaponAlloc
+2 = ManualAllocated
+
+    mount = number The mount dbid to fire from [Applies to manual weapon launch ]
+
+    weapon = number The weapon dbid on the mount to fire [Applies to manual weapon launch ]
+
+    qty = number The number of weapons to fire in this salvo [Applies to manual weapon launch ]
+
+    If the contactId is 'BOL', then the following applies.
+
+    latitude = latitude The latitude of the aimpoint
+
+    longitude = longitude The longitude of the aimpoint
+
+    If the mode is '1' (ManualWeaponAlloc), then the following apply.
+
+    course = {} of multiple The course of the weapon(s) launched to the aimpoint/contact, otherwise direct to aimpoint. There is no check that the weapon can still hit the target after applying the 'course'.
+        latitude = latitude The latitude of the waypoint
+        longitude = longitude The longitude of the waypoint
+
+
+
+
+
